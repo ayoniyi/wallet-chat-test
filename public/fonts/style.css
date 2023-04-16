@@ -1,0 +1,20 @@
+@font-face {
+  src: url(/fonts/Satoshi-Variable.woff) format("woff");
+  font-family: Satoshi-Var;
+}
+@font-face {
+  src: url(/fonts/Satoshi-Bold.woff) format("woff");
+  font-family: Satoshi-Bold;
+}
+@font-face {
+  src: url(/fonts/Satoshi-Regular.woff) format("woff");
+  font-family: Satoshi-Reg;
+}
+@font-face {
+  src: url(/fonts/Satoshi-Light.woff) format("woff");
+  font-family: Satoshi-Light;
+}
+@font-face {
+  src: url(/fonts/SpaceGrotesk-Light.woff) format("woff");
+  font-family: SpaceGrotesk;
+}

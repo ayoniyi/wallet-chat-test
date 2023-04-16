@@ -1,0 +1,118 @@
+@import "../../styles/mixins";
+
+.footerContainer {
+  margin-top: 5em;
+  padding: 2em 0 3em 0;
+}
+.footerContentM {
+  display: none;
+  background: none;
+}
+.footerContent {
+  //background: pink;
+  @include flexRegular(row, space-between);
+  width: 87%;
+  max-width: 1300px;
+  margin: auto;
+  .footLogo {
+    width: 25%;
+    // height: 25%;
+
+    //background: pink;
+  }
+  .footLinks {
+    @include flexRegular(row, space-between);
+    //background: pink;
+    width: 35%;
+    font-family: SpaceGrotesk;
+    //font-size: 0.9em;
+  }
+  .footIcons {
+    width: 25%;
+    //background: pink;
+    @include flexRegular(row, flex-end);
+    img {
+      margin-right: 1em;
+    }
+    .nu-icons {
+      margin-top: -5px;
+    }
+  }
+}
+@media (max-width: 950px) {
+  .footerContent {
+    width: 91%;
+    .footLogo,
+    .footIcons {
+      width: 20%;
+    }
+    .footLinks {
+      width: 50%;
+    }
+  }
+}
+@media (max-width: 770px) {
+  .footerContent {
+    display: none;
+  }
+  .footerContentM {
+    display: block;
+    @include flexRegular(row, space-between);
+    width: 90%;
+    margin: auto;
+    .footLeftM {
+      width: 40%;
+      //background: pink;
+      @include flexRegular(column, flex-start);
+      align-items: flex-start;
+      //padding-left: 2em;
+      .footLogoM {
+        img {
+          // width: 95px;
+          width: 70%;
+          //height: 100%;
+        }
+      }
+      .footIconsM {
+        margin-top: 3em;
+        @include flexRegular(row, flex-start);
+        align-items: center;
+        //background: cornsilk;
+
+        img {
+          margin-right: 1em;
+          //width: 11px;
+          //background: red;
+          height: 100%;
+          //width: 100%;
+        }
+        .nu-icons {
+          margin-top: -6px;
+        }
+      }
+    }
+    .footRightM {
+      width: 40%;
+      text-align: left;
+      // background: pink;
+      //padding-left: 2em;
+      @include flexRegular(column, space-between);
+      align-items: flex-end;
+      // li:nth-of-type(2) {
+      //   margin: 1.5em 0;
+      //   background: peru;
+      // }
+      .linkMt {
+        margin: 1.2em 0;
+      }
+    }
+  }
+}
+@media (max-width: 420px) {
+  .footerContentM {
+    .footLeftM,
+    .footRightM {
+      padding-left: 0;
+    }
+  }
+}

@@ -1,0 +1,176 @@
+@import "../../styles/mixins";
+
+.overlay {
+  width: 100%;
+  position: fixed;
+  // background: rgba(23, 18, 20, 0.32);
+  // box-shadow: inset 0px 1px 100px rgba(0, 0, 0, 0.2);
+  // backdrop-filter: blur(10px);
+  background: rgba(23, 18, 20, 0.45);
+  backdrop-filter: blur(8px);
+  z-index: 5;
+  width: 100%;
+  height: 100vh;
+  transition: 0.1s ease-in-out;
+}
+
+.box {
+  position: fixed;
+  z-index: 5;
+  height: 100vh;
+  top: 0;
+  background: #fff;
+  //right: 0;
+  right: -32vw;
+  transition: 0.5s ease-in-out;
+  width: 32vw;
+  //max-width: 385px;
+  //z-index: 1;
+}
+
+.top {
+  margin: 1.5em auto 1em auto;
+  padding: 2em 2.3em 2em 2.3em;
+  @include flexRegular(row, space-between);
+  // p {
+  //   margin-top: 0.7em;
+  // }
+  // span {
+  //   font-weight: bolder;
+  // }
+
+  //border-bottom: 0.2px solid #b9bddf;
+  border-bottom: 0.5px solid #27272a;
+}
+.connectTxt {
+  @include flexRegular(row, flex-start);
+  h2 {
+    margin-left: 0.8em;
+    font-size: 20px;
+    font-family: Satoshi-Var;
+    font-weight: 400;
+  }
+}
+.closeBx {
+  img {
+    cursor: pointer;
+  }
+}
+.walletBox {
+  margin-top: 3em;
+  padding-bottom: 4em;
+  //border-bottom: 0.5px solid #a1a1aa;
+}
+.walletTxt {
+  margin: 2em 0;
+  padding: 0 2.3em;
+  transition: 0.5s ease-in-out;
+  p {
+    width: 70%;
+    font-size: 16px;
+    font-family: Satoshi-Var;
+    margin-top: 0.5em;
+  }
+  h3 {
+    //color: red;
+    font-size: 20px;
+    //font-weight: lighter;
+    font-family: Satoshi-Reg;
+  }
+}
+.line {
+  height: 0.5px;
+  background: #a1a1aa;
+  width: 80%;
+  margin: auto auto auto 2.3em;
+}
+
+.tagForm {
+  margin-top: 2em;
+  width: 90%;
+  button {
+    margin-top: 2em;
+    font-size: 15px;
+    @include btnRegular(#fff, 13vw);
+    @include flexRegular(row, center);
+    background: linear-gradient(101.93deg, #20709b 2.36%, #1e4097 100%);
+    min-width: 180px;
+    // min-width: 200px;
+    max-width: 220px;
+    height: 49px;
+    color: #fff;
+    font-family: Raleway;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.connectBox {
+  width: 77%;
+  margin: 1em auto 1em 2.3em;
+  //padding: 0;
+  // border: 1px solid #d9dbe9a1;
+  border: 0.2px solid #27272ad1;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.connectedBox {
+  @include flexRegular(row, flex-start);
+  width: 76%;
+  margin: auto;
+  //background: pink;
+  img:nth-child(1) {
+    transform: scale(2.3);
+  }
+  img:nth-child(2) {
+    margin: 0 5em;
+  }
+}
+.connectBtn {
+  @include flexRegular(row, flex-start);
+  //margin: 2.5em 0;
+  padding: 1.3em 2em;
+  border-bottom: 0.2px solid #27272a9a;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  p {
+    font-family: Raleway;
+    font-weight: 600;
+    margin-left: 1.5em;
+  }
+  &:hover {
+    border-radius: 8px;
+    width: 99.5%;
+    background: radial-gradient(
+      76.91% 98.11% at 66.15% 86.6%,
+      #e6faff 0%,
+      #fff1f1 55.21%,
+      #fefdf8 100%
+    );
+  }
+}
+.connectBtn:nth-child(3) {
+  border-bottom: 0px;
+}
+.disconnect {
+  margin-top: 3em;
+  margin-left: 2.3em;
+  font-size: 15px;
+  @include btnRegular(#fff, 13vw);
+  @include flexRegular(row, center);
+  background: linear-gradient(101.93deg, #20709b 2.36%, #1e4097 100%);
+  min-width: 180px;
+  // min-width: 200px;
+  max-width: 220px;
+  height: 49px;
+  color: #fff;
+  font-family: Raleway;
+  &:hover {
+    transform: scale(1.03);
+  }
+}
+.walletImg {
+  width: 25px;
+  height: 25px;
+}

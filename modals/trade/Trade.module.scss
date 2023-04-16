@@ -1,0 +1,84 @@
+@import "../../styles/mixins";
+.overlay {
+  width: 100%;
+  position: fixed;
+  background: rgba(23, 18, 20, 0.45);
+  backdrop-filter: blur(8px);
+  z-index: 7;
+  width: 100%;
+  height: 100vh;
+  transition: 0.1s ease-in-out;
+}
+
+.modal {
+  position: fixed;
+  z-index: 8;
+  top: 11vh;
+  //height: 90vh;
+  left: 30vw;
+  right: 30vw;
+  width: 40vw;
+  min-height: 60vh;
+  //padding: 0;
+  padding: 3em 2em;
+  //padding: 3em 2em 1em 2em;
+  background: #fffef9;
+  border-radius: 8px;
+  @include flexRegular(column, flex-start);
+}
+
+.modalContent {
+  position: relative;
+  margin: 0 auto;
+  width: 95%;
+  //background: pink;
+}
+
+.modalTop {
+  @include flexRegular(row, flex-start);
+  margin-bottom: 2em;
+  img {
+    margin-right: 2em;
+    cursor: pointer;
+  }
+  h3 {
+    font-size: 22px;
+    font-family: Satoshi-Var;
+    width: 80%;
+  }
+}
+
+.saleItem {
+  @include flexRegular(row, space-between);
+  cursor: pointer;
+  margin-bottom: 2em;
+  padding: 1.8em 2.5em;
+  position: relative;
+
+  border: 1px solid #20709b;
+  border-radius: 12px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    background: radial-gradient(
+      76.91% 98.11% at 66.15% 86.6%,
+      #e6faff 0%,
+      #fff1f1 55.21%,
+      #fefdf8 100%
+    );
+    transform: scale(1.02);
+  }
+  h4 {
+    font-size: 19px;
+    font-weight: 500;
+    font-family: Satoshi-Var;
+  }
+  img {
+    position: absolute;
+    display: block;
+    right: 0.9em;
+    bottom: 0;
+    //width: 100%;
+    height: 80%;
+  }
+}
