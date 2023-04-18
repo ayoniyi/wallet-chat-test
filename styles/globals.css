@@ -36,6 +36,14 @@
   src: url(/fonts/SpaceGrotesk-Light.woff) format("woff"),
     url(/fonts/SpaceGrotesk-Light.ttf) format("truetype");
 }
+@font-face {
+  font-family: Neue-reg;
+  src: url(/fonts/neue/NeueMachina-Regular.otf) format("opentype");
+}
+@font-face {
+  font-family: Neue-light;
+  src: url(/fonts/neue/NeueMachina-Light.otf) format("opentype");
+}
 * {
   box-sizing: border-box;
   padding: 0;
@@ -85,4 +93,7 @@ input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+input[type="radio"] {
+  -webkit-appearance: radio;
 }

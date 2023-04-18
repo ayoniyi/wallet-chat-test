@@ -6,13 +6,16 @@ import style from "./Nav.module.scss";
 import Logo from "./assets/logo.svg";
 import Ham from "./assets/ham.svg";
 import Close from "./assets/close.svg";
+import ConnectWallet from "../ConnectWallet/ConnectWallet";
+import { useIsMounted } from "../../hooks/useIsMounted";
 
 export const NavMobile = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   // const [showModal, setShowModal] = useState(false);
-  const handleClose = () => {
-    setShowModal(false);
-  };
+  // const handleClose = () => {
+  //   setShowModal(false);
+  // };
+  const mounted = useIsMounted();
   const menu = useRef();
   const link1 = useRef();
   const link2 = useRef();
@@ -75,6 +78,7 @@ export const NavMobile = (props) => {
 
   return (
     <>
+      {mounted && <ConnectWallet />}
       {/* {showModal && <Waitlist handleClose={handleClose} />} */}
       <nav className={style.containerM}>
         <div className={style.contentM}>
@@ -113,8 +117,11 @@ export const NavMobile = (props) => {
                   </Link>
                 </li>
                 <div className={style.menuBtns} ref={menuBtn}>
-                  <button onClick={() => setShowModal(true)}>
-                    Join our waitlist
+                  <button
+                    id="openConnect4"
+                    //onClick={() => setShowModal(true)}
+                  >
+                    Create Trade
                   </button>
                 </div>
               </ul>

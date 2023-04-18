@@ -95,6 +95,32 @@ const ConnectWallet = () => {
   const { data: signer, isError } = useSigner<any>(); // ***
   const signerData: any = useSigner().data;
 
+  const checkIfResolved = async (e: any) => {
+    e.preventDefault();
+    let contract: any = new InferusClient(signerData);
+    try {
+      const checkName = await contract.resolveName(userInput.tag);
+      console.log(checkName);
+    } catch (err) {
+      console.log(err);
+      //console.log("reg?",regName);
+      console.log(isError);
+    }
+  };
+  const checkIfExists = async (e: any) => {
+    e.preventDefault();
+    let contract: any = new InferusClient(signerData);
+    try {
+      const checkName = await contract.getLinkedNames(address);
+      console.log(checkName);
+      //console.log(address, "address>>");
+    } catch (err) {
+      console.log(err);
+      //console.log("reg?",regName);
+      console.log(isError);
+    }
+  };
+
   const registerName = async () => {
     const linkMetadata: any = {
       paymentLink: {
@@ -115,10 +141,20 @@ const ConnectWallet = () => {
         },
       },
     };
+    const grecaptcha: any = {
+      execute: () => Promise.resolve("test-token"),
+    };
+
+    let contractData: any = new InferusClient(
+      signerData,
+      undefined,
+      grecaptcha
+    );
     try {
-      console.log("contract>>", contract);
-      const regName = await contract.register(userInput.tag, linkMetadata);
-      console.log(regName);
+      // console.log("contract>>", contract);
+      const regName = await contractData.register(userInput.tag, linkMetadata);
+      //console.log(regName);
+      console.log("success!!");
     } catch (err) {
       console.log(err);
       //console.log("reg?",regName);
@@ -126,7 +162,7 @@ const ConnectWallet = () => {
     }
   };
 
-  const checkValidName = async (e: any) => {
+  const handleRegister = async (e: any) => {
     e.preventDefault();
     console.log("signer ==== ", signerData);
     let contractData: any = new InferusClient(signerData);
@@ -144,7 +180,6 @@ const ConnectWallet = () => {
             ethers.utils.formatBytes32String(search)
           );
           metadataUri = ethers.utils.toUtf8String(metadataUri);
-          //console.log("meta>>", metadataUri);
           if (metadataUri.substring(0, 5) == "ipfs:") {
             setVerified(false);
           } else if (metadataUri === "") {
@@ -160,12 +195,10 @@ const ConnectWallet = () => {
         setVerified(false);
       }
     } catch (err) {
-      //setNameError(true);
       console.log(err);
       setVerified(false);
       setComment(`Error: Name not available`);
     }
-
     registerName();
   };
 
@@ -179,6 +212,7 @@ const ConnectWallet = () => {
     let openConnect: any = document.getElementById("openConnect");
     let openConnect2: any = document.getElementById("openConnect2");
     let openConnect3: any = document.getElementById("openConnect3");
+    let openConnect4: any = document.getElementById("openConnect4");
     const t1 = gsap.timeline();
     t1.to(box.current, 0.001, {
       right: 0,
@@ -197,6 +231,10 @@ const ConnectWallet = () => {
       t1.reversed(!t1.reversed());
       overlay.current.classList.toggle(style.overlay);
     };
+    openConnect4.onclick = function () {
+      t1.reversed(!t1.reversed());
+      overlay.current.classList.toggle(style.overlay);
+    };
     overlay.current.onclick = function () {
       t1.reversed(!t1.reversed());
       overlay.current.classList.toggle(style.overlay);
@@ -208,30 +246,27 @@ const ConnectWallet = () => {
   }, []);
 
   const handleClose = () => {
-    // setTimeout(() => {
-
-    // }, 1000);
     setShowModal("none");
   };
 
   return (
     <>
       <AnimatePresence exitBeforeEnter>
-        {/* {showModal === "buy" ? (
+        {showModal === "buy" ? (
           <Buy handleClose={handleClose} />
         ) : showModal === "sell" ? (
           <Sell handleClose={handleClose} />
         ) : (
           ""
-        )} */}
-        {showModal === "sell" && <Sell handleClose={handleClose} />}
+        )}
+        {/* {showModal === "sell" && <Sell handleClose={handleClose} />} */}
       </AnimatePresence>
       <Toaster
         toastOptions={{
           className: "toasts",
-          style: {
-            // border: '11px solid #713200',
-          },
+          // style: {
+          //   border: "1px solid #713200",
+          // },
           success: {
             iconTheme: {
               primary: "#0770A8;",
@@ -339,28 +374,30 @@ const ConnectWallet = () => {
           <div className={style.tagBox}>
             {/* {!hasTag && isConnected && ( */}
             <>
-              <form
+              <div
                 className={`${style.walletTxt} ${
                   !isConnected ? "disable" : " "
                 }`}
-                //onSubmit={checkValidName}
               >
                 <h3>Quickly setup buylist profile</h3>
-                <div className={style.tagForm}>
+                <form
+                  className={style.tagForm}
+                  //onSubmit={checkIfExists}
+                >
                   <TextInput
                     labelName="Buylist tag"
                     inputName="tag"
                     type="text"
                     value={userInput.tag}
                     inputHandler={inputHandler}
-                    required
+                    //required
                     // onKeyUp={(e) => handleKey}
                   />
                   <button onClick={() => setShowModal("sell")}>Submit</button>
                   <p>{comment}</p>
                   {/* <p>{verified ? "True" : "False"}</p> */}
-                </div>
-              </form>
+                </form>
+              </div>
             </>
             {/* )} */}
           </div>
