@@ -70,6 +70,10 @@ a {
 button {
   cursor: pointer;
 }
+button:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
 
 li {
   list-style: none;
@@ -81,6 +85,9 @@ li {
 .disable2 {
   opacity: 0.6;
   pointer-events: none;
+}
+.successTxt {
+  color: #277727 !important;
 }
 
 input,

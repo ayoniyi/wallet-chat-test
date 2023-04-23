@@ -26,14 +26,18 @@ import TextInput from "../TextInput/TextInput";
 import { InferusClient } from "inferus-js";
 import Sell from "../../modals/trade/Sell";
 import Buy from "../../modals/trade/Buy";
+import CircularProgress from "@mui/material/CircularProgress";
 //import { shortenAddress } from "../../utils/formatting";
 
 const ConnectWallet = () => {
-  const [hasTag, setHasTag] = useState(false);
+  // const [hasTag, setHasTag] = useState(false);
+  const [reqLoading, setReqLoading] = useState(false);
+  const [tagName, setTagName] = useState<any>([]);
   const [isChainSupported, setIsChainSupported] = useState(false);
   const [contract, setContract] = useState<any>();
   const mounted = useIsMounted();
   const [showModal, setShowModal] = useState("none");
+  const [action, setAction] = useState("");
 
   interface User {
     tag: string;
@@ -73,10 +77,11 @@ const ConnectWallet = () => {
       if (data.chain.unsupported) {
         disconnect();
         toast.error(`Chain not supported, please switch to supported chain`, {
-          duration: 6000,
+          duration: 3000,
         });
       } else {
         connectAlert();
+
         setIsChainSupported(true);
         //localStorage.setItem(isSuppported, true)
         //window.localStorage.setItem("isSupported", "true");
@@ -107,12 +112,15 @@ const ConnectWallet = () => {
       console.log(isError);
     }
   };
-  const checkIfExists = async (e: any) => {
-    e.preventDefault();
+  const checkIfExists = async () => {
+    //e.preventDefault();
     let contract: any = new InferusClient(signerData);
     try {
       const checkName = await contract.getLinkedNames(address);
       console.log(checkName);
+      setTagName(checkName);
+      return checkName;
+      //toast.success(checkName);
       //console.log(address, "address>>");
     } catch (err) {
       console.log(err);
@@ -151,12 +159,16 @@ const ConnectWallet = () => {
       grecaptcha
     );
     try {
-      // console.log("contract>>", contract);
       const regName = await contractData.register(userInput.tag, linkMetadata);
       //console.log(regName);
+      setReqLoading(false);
       console.log("success!!");
+      toast.success(`Nice! your tag was successfully setup `, {
+        duration: 3000,
+      });
     } catch (err) {
       console.log(err);
+      setReqLoading(false);
       //console.log("reg?",regName);
       console.log(isError);
     }
@@ -164,42 +176,58 @@ const ConnectWallet = () => {
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
+    setReqLoading(true);
     console.log("signer ==== ", signerData);
-    let contractData: any = new InferusClient(signerData);
-    console.log("contract", contractData);
-    setContract(contractData);
-
-    try {
-      if (userInput.tag !== "") {
-        if (userInput.tag.length > 1 && userInput.tag.length < 33) {
-          let search = userInput.tag;
-
-          let metadataUri = await new InferusClient(
-            signerData
-          ).namesContract.metadataURIs(
-            ethers.utils.formatBytes32String(search)
-          );
-          metadataUri = ethers.utils.toUtf8String(metadataUri);
-          if (metadataUri.substring(0, 5) == "ipfs:") {
-            setVerified(false);
-          } else if (metadataUri === "") {
-            setVerified(true);
-          }
-        } else if (userInput.tag.length < 2) {
-          setVerified(false);
-          setComment(
-            `Valid inferus names have a minimum of 2 and a maximum of 32 characters.`
-          );
-        }
-      } else if (userInput.tag == "") {
-        setVerified(false);
+    // check if wallet exists
+    const check = await checkIfExists();
+    if (check.length >= 1) {
+      toast.success(`Welcome! ${check}, your tag has already been setup. `, {
+        duration: 3000,
+      });
+      if (action === "sell") {
+        setShowModal("sell");
+      } else if (action === "buy") {
+        //route to marketplace
       }
-    } catch (err) {
-      console.log(err);
-      setVerified(false);
-      setComment(`Error: Name not available`);
+    } else {
+      //
+      let contractData: any = new InferusClient(signerData);
+      console.log("contract", contractData);
+      setContract(contractData);
+
+      try {
+        if (userInput.tag !== "") {
+          if (userInput.tag.length > 1 && userInput.tag.length < 33) {
+            let search = userInput.tag;
+
+            let metadataUri = await new InferusClient(
+              signerData
+            ).namesContract.metadataURIs(
+              ethers.utils.formatBytes32String(search)
+            );
+            metadataUri = ethers.utils.toUtf8String(metadataUri);
+            if (metadataUri.substring(0, 5) == "ipfs:") {
+              setVerified(false);
+            } else if (metadataUri === "") {
+              setVerified(true);
+            }
+          } else if (userInput.tag.length < 2) {
+            setVerified(false);
+            setComment(
+              `Valid inferus names have a minimum of 2 and a maximum of 32 characters.`
+            );
+          }
+        } else if (userInput.tag == "") {
+          setVerified(false);
+        }
+      } catch (err) {
+        console.log(err);
+        setVerified(false);
+        setComment(`Error: Name not available`);
+      }
+      registerName();
     }
-    registerName();
+    setReqLoading(false);
   };
 
   //
@@ -226,10 +254,12 @@ const ConnectWallet = () => {
     openConnect2.onclick = function () {
       t1.reversed(!t1.reversed());
       overlay.current.classList.toggle(style.overlay);
+      setAction("sell");
     };
     openConnect3.onclick = function () {
       t1.reversed(!t1.reversed());
       overlay.current.classList.toggle(style.overlay);
+      setAction("buy");
     };
     openConnect4.onclick = function () {
       t1.reversed(!t1.reversed());
@@ -247,6 +277,23 @@ const ConnectWallet = () => {
 
   const handleClose = () => {
     setShowModal("none");
+  };
+
+  //
+  const alreadyExists = async () => {
+    const check = await checkIfExists();
+    if (check.length >= 1) {
+      toast.success(`Welcome! ${check} `, { duration: 3000 });
+      if (action === "sell") {
+        setShowModal("sell");
+      } else if (action === "buy") {
+        //route to marketplace
+      }
+      setTagName([]);
+    }
+    if (check.length < 1) {
+      toast.error(`Please setup a buylist tag first`, { duration: 3000 });
+    }
   };
 
   return (
@@ -341,7 +388,14 @@ const ConnectWallet = () => {
             {mounted && isConnected && (
               <>
                 <div className={style.walletTxt}>
-                  <h3>Welcome to buylist!</h3>
+                  <h3>
+                    Welcome to buylist!
+                    {tagName.lenght >= 1 && (
+                      <span className="successTxt"> @{tagName}</span>
+                    )}
+                  </h3>
+
+                  {/* {tagName !== "" && <p className="successTxt">@{tagName}</p>} */}
                   {/* <p>
                     You will be redirected to create your trade in a second!
                   </p> */}
@@ -367,39 +421,50 @@ const ConnectWallet = () => {
                   {" "}
                   Sign Out
                 </button>
+                <button className={style.disconnect} onClick={alreadyExists}>
+                  {" "}
+                  Log In
+                </button>
+                {/* <div className={style.walletTxt}>
+                  <p>A tag has been created with your wallet</p>
+                </div> */}
               </>
             )}
           </div>
           <div className={style.line}></div>
+
           <div className={style.tagBox}>
-            {/* {!hasTag && isConnected && ( */}
             <>
               <div
                 className={`${style.walletTxt} ${
                   !isConnected ? "disable" : " "
                 }`}
               >
-                <h3>Quickly setup buylist profile</h3>
-                <form
-                  className={style.tagForm}
-                  //onSubmit={checkIfExists}
-                >
+                <h3>Quickly setup buylist tag</h3>
+                <form className={style.tagForm} onSubmit={handleRegister}>
                   <TextInput
                     labelName="Buylist tag"
                     inputName="tag"
                     type="text"
                     value={userInput.tag}
                     inputHandler={inputHandler}
-                    //required
                     // onKeyUp={(e) => handleKey}
                   />
-                  <button onClick={() => setShowModal("sell")}>Submit</button>
+                  <button
+                    disabled={reqLoading}
+                    //onClick={() => setShowModal("sell")}
+                  >
+                    {reqLoading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : (
+                      "Submit"
+                    )}
+                  </button>
                   <p>{comment}</p>
                   {/* <p>{verified ? "True" : "False"}</p> */}
                 </form>
               </div>
             </>
-            {/* )} */}
           </div>
         </div>
       </div>

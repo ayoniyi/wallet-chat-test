@@ -21,6 +21,7 @@
   right: 32.5vw;
   width: 35vw;
   min-height: 55vh;
+  max-height: 800px;
   //padding: 0;
   padding: 3em 2em;
   //padding: 3em 2em 1em 2em;
@@ -225,7 +226,7 @@
   }
 }
 .modalBtns {
-  margin-top: 4em;
+  margin-top: 3em;
   @include flexRegular(row, space-between);
   button:nth-child(1) {
     margin-top: 2em;

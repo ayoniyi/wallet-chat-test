@@ -189,7 +189,16 @@ const Sell = (props: { handleClose?: any }) => {
           {itemChoice !== "" &&
             saleState !== "complete" &&
             saleState !== "choose" && (
-              <div className={style.modalBtns}>
+              <motion.div
+                className={style.modalBtns}
+                // initial={{ x: 50 }}
+                // animate={{ x: 0 }}
+                // exit={{ x: 50 }}
+                // variants={modalise}
+                // initial="hidden"
+                // animate="visible"
+                // exit="exit"
+              >
                 <button onClick={handleBack}>Back</button>
                 <button onClick={handleNext}>
                   {saleState === "sellItem"
@@ -198,7 +207,7 @@ const Sell = (props: { handleClose?: any }) => {
                     ? "Create trade"
                     : ""}
                 </button>
-              </div>
+              </motion.div>
             )}
           {saleState === "complete" && (
             <motion.div
