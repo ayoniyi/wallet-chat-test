@@ -6,7 +6,7 @@ import Close from "./assets/close.svg";
 import Shape from "./assets/cshape.svg";
 import Link from "next/link";
 
-import Share from "./assets/Share.svg";
+import Share from "./assets/share.svg";
 
 // components
 import SellItem from "./SellItem";
