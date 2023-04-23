@@ -274,7 +274,7 @@
   color: #20709b;
   margin: auto;
   padding: 1em 2em;
-  width: 319px;
+  //width: 319px;
   width: 80%;
   min-width: 300px;
   height: 59px;
@@ -311,14 +311,63 @@
 }
 @media (max-width: 500px) {
   .modal {
-    left: 2.5vw;
-    right: 2.5vw;
-    width: 95vw;
+    // top: none;
+    // bottom: 0;
+    // left: 2.5vw;
+    // right: 2.5vw;
+    // width: 95vw;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    right: 0;
     padding: 3em 1.5em;
   }
   .modalTop {
+    h3 {
+      font-size: 19px;
+    }
     img {
       margin-right: 1em;
     }
+  }
+  .modalTitle,
+  .modalTitle2 {
+    h3 {
+      font-size: 19px;
+    }
+    p {
+      font-size: 0.95em;
+    }
+  }
+  .negTxt {
+    p {
+      font-size: 0.92em;
+    }
+  }
+  .saleItem {
+    h4 {
+      font-size: 17px;
+    }
+    img {
+      width: 35%;
+      right: -5px;
+    }
+  }
+  .confirmBx {
+    width: 90%;
+  }
+  .confirmBx,
+  .amountBx {
+    p {
+      font-size: 17px;
+    }
+  }
+  .modalInfo {
+    width: 90%;
+  }
+  .shareBtn {
+    font-size: 0.95em;
   }
 }
