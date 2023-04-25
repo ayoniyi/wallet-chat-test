@@ -1,0 +1,61 @@
+@import "../../styles/mixins";
+
+.container {
+  //   background: radial-gradient(
+  //     76.91% 98.11% at 66.15% 86.6%,
+  //     #e6faff 0%,
+  //     #fff1f1 55.21%,
+  //     #fefdf8 100%
+  //   );
+  background: rgba(255, 254, 249, 1);
+  height: 100vh;
+}
+.content {
+  //background: pink;
+  padding: 5em 0 0 0;
+  width: 97%;
+  max-width: 1300px;
+  margin: auto;
+  //@include flexRegular(column, flex-start);
+}
+
+.title {
+  h2 {
+    font-family: Satoshi-Var;
+    font-size: 28px;
+    font-weight: 500;
+  }
+}
+.topTabs {
+  margin-top: 1em;
+  @include flexRegular(row, flex-start);
+}
+.tradeTab {
+  font-family: Satoshi-Var;
+  font-weight: 300;
+
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  margin-right: 2em;
+  padding: 0.5em 1.5em;
+  transition: 0.25s ease-in;
+  &:hover {
+    border: 0.8px solid rgba(230, 212, 118, 1);
+    background: #ffffff;
+    //transform: scale(1.03);
+  }
+}
+
+.itemsBlock {
+  margin-top: 3em;
+  h2 {
+    font-family: Satoshi-Var;
+    font-size: 25px;
+    font-weight: 500;
+  }
+}
+.itemsRow {
+  margin-top: 2em;
+  @include flexRegular(row, space-between);
+}

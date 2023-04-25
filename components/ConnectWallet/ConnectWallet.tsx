@@ -22,14 +22,18 @@ import WalletConnect from "./images/wc.svg";
 import Check from "./images/check.svg";
 import Logo from "./images/logo.svg";
 import { useIsMounted } from "../../hooks/useIsMounted";
+//import { useIsOnline } from "../../hooks/useIsOnline";
 import TextInput from "../TextInput/TextInput";
 import { InferusClient } from "inferus-js";
 import Sell from "../../modals/trade/Sell";
 import Buy from "../../modals/trade/Buy";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useRouter } from "next/router";
 //import { shortenAddress } from "../../utils/formatting";
 
 const ConnectWallet = () => {
+  const router = useRouter();
+
   // const [hasTag, setHasTag] = useState(false);
   const [reqLoading, setReqLoading] = useState(false);
   const [tagName, setTagName] = useState<any>([]);
@@ -114,6 +118,7 @@ const ConnectWallet = () => {
   };
   const checkIfExists = async () => {
     //e.preventDefault();
+    //const online = useIsOnline();
     let contract: any = new InferusClient(signerData);
     try {
       const checkName = await contract.getLinkedNames(address);
@@ -188,6 +193,9 @@ const ConnectWallet = () => {
         setShowModal("sell");
       } else if (action === "buy") {
         //route to marketplace
+        setTimeout(() => {
+          router.push("/Marketplace");
+        }, 600);
       }
     } else {
       //
@@ -288,6 +296,9 @@ const ConnectWallet = () => {
         setShowModal("sell");
       } else if (action === "buy") {
         //route to marketplace
+        setTimeout(() => {
+          router.push("/Marketplace");
+        }, 600);
       }
       setTagName([]);
     }
@@ -311,9 +322,11 @@ const ConnectWallet = () => {
       <Toaster
         toastOptions={{
           className: "toasts",
-          // style: {
-          //   border: "1px solid #713200",
-          // },
+          style: {
+            //border: "1px solid #713200",
+            border: "1px solid #20709B",
+            //border-radius: "8px 8px 8px 0px"
+          },
           success: {
             iconTheme: {
               primary: "#0770A8;",
