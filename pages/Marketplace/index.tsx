@@ -1,4 +1,4 @@
-import Marketplace from "./Marketplace";
+import Marketplace from "./marketplace";
 const Market = () => {
   return <Marketplace />;
 };

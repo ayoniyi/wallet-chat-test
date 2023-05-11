@@ -31,13 +31,13 @@ export const NavWeb = () => {
             <div className={style.links}>
               <Link
                 href="#what-we-offer"
-                className={`${style.link} hvr-underline-from-right`}
+                className={`${style.link} hvr-underline-from-right disable`}
               >
                 <p>What we offer</p>
               </Link>
               <Link
                 href="#how-it-works"
-                className={`${style.link} hvr-underline-from-right`}
+                className={`${style.link} hvr-underline-from-right disable`}
               >
                 <p>How it works</p>
               </Link>
@@ -55,7 +55,7 @@ export const NavWeb = () => {
               //ref={openConnect}
               //onClick={() => setShowModal(true)}
             >
-              Create Trade
+              Connect Wallet
             </button>
           </div>
         </div>

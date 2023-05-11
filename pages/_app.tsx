@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import "../styles/hvr.css";
 import "animate.css";
+import "../components/rwc/dist/index.css";
 
 import type { AppProps } from "next/app";
 

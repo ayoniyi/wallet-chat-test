@@ -106,10 +106,14 @@ export const NavMobile = (props) => {
             <div className={style.menuBody}>
               <ul className={`${style.menuLinks} mLinks`}>
                 <li className={style.mLink} ref={link1}>
-                  <Link href="/#what-we-offer">What we offer </Link>
+                  <Link className="disable" href="/#what-we-offer">
+                    What we offer{" "}
+                  </Link>
                 </li>
                 <li className={style.mLink} ref={link2}>
-                  <Link href="/#how-it-works">How it works</Link>
+                  <Link className="disable" href="/#how-it-works">
+                    How it works
+                  </Link>
                 </li>
                 <li className={`${style.mLink} `} ref={link3}>
                   <Link className="disable" href="#">
@@ -121,7 +125,7 @@ export const NavMobile = (props) => {
                     id="openConnect4"
                     //onClick={() => setShowModal(true)}
                   >
-                    Create Trade
+                    Connect Wallet
                   </button>
                 </div>
               </ul>

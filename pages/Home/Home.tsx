@@ -41,6 +41,7 @@ import Footer from "../../components/footer/Footer";
 import { useRef, useState } from "react";
 import ConnectWallet from "../../components/ConnectWallet/ConnectWallet";
 import { useIsMounted } from "../../hooks/useIsMounted";
+import { WalletChatWidget } from "../../components/rwc/dist/index";
 //import { gsap, Power3, Expo } from "gsap";
 
 const Home = () => {
@@ -58,6 +59,10 @@ const Home = () => {
     vertical: true,
   };
   const [showModal, setShowModal] = useState(false);
+  const [widgetState, setWidgetState] = useState({
+    chatAddr: "",
+    isOpen: false,
+  });
   const handleClose = () => {
     setShowModal(false);
   };
@@ -67,6 +72,15 @@ const Home = () => {
   const heroImg: any = useRef();
 
   const mounted = useIsMounted();
+
+  //
+  const handleChat = () => {
+    setWidgetState({
+      ...widgetState,
+      chatAddr: "0xA45eF0134e9f2F1f639A0d48C550deBc215CB760",
+      isOpen: !widgetState.isOpen,
+    });
+  };
 
   return (
     <>
@@ -111,16 +125,16 @@ const Home = () => {
                 //onClick={() => setShowModal(true)} ref={btn1}
                 id="openConnect2"
               >
-                Create trade
-                <Image src={TradeIcon} alt="trade" />
+                Connect Wallet
+                {/* <Image src={TradeIcon} alt="trade" /> */}
               </button>
-              <button
+              {/* <button
                 //onClick={() => setShowModal(true)} ref={btn1}
                 id="openConnect3"
               >
                 Marketplace
                 <Image src={Cart} alt="marketplace" />
-              </button>
+              </button> */}
               {/* <div className={style.demo} ref={btn2}>
                 <p>Demo</p>
                 <Image src={Demo} alt="demo" />
@@ -163,208 +177,9 @@ const Home = () => {
             </div>
           </div>
         </section>
-
-        <section className={style.services} id="what-we-offer">
-          <div className={style.serviceContent}>
-            <div className={style.serviceTitle}>
-              <h2>Protection as a service</h2>
-              {/* <p>
-                Making it possible for the crypto ecosystem to safely interact
-                with the global marketplace.
-              </p> */}
-            </div>
-            <div className={style.serviceBoxes}>
-              <div className={style.serviceRow}>
-                <div className={style.serviceBox}>
-                  <div className={style.sbTxt}>
-                    <h2>Trade whitelist spots</h2>
-                    <p>
-                      Exchange your whitelist for cash, put it up and see
-                      who&apos;s buying!
-                    </p>
-                  </div>
-                  <div className={style.sbImg}>
-                    <Image src={Trade} alt="trade spots" />
-                  </div>
-                </div>
-                <div className={style.serviceBox}>
-                  <div className={style.sbTxt}>
-                    <h2>Sell illiquid tokens </h2>
-                    <p>Exchange illiquid tokens in our marketplace</p>
-                  </div>
-                  <div className={style.sbImg}>
-                    <Image src={Sell} alt="sell tokens" />
-                  </div>
-                </div>
-              </div>
-              <div className={style.serviceRow}>
-                <div className={style.serviceBox}>
-                  <div className={style.sbTxt}>
-                    <h2>Exchange NFTs</h2>
-                    <p> Exchange NFTs for tokens or other NFTs</p>
-                  </div>
-                  <div className={style.sbImg}>
-                    <Image src={Xchange} alt="exchange NFTs" />
-                  </div>
-                </div>
-                <div className={style.serviceBox}>
-                  <div className={style.sbTxt}>
-                    <h2>Sell social media accounts</h2>
-                    <p>
-                      {" "}
-                      Put your twitter, insta or facebook up and see who&apos;s
-                      buying
-                    </p>
-                  </div>
-                  <div className={style.sbImg}>
-                    <Image src={SellSocial} alt="sell social media accounts" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className={style.features}>
-          <div className={style.featuresContent}>
-            <div className={style.featuresTitle}>
-              <h2>The easiest and most secure OTC escrow service.</h2>
-              {/* <p>
-                Our technology is designed to remove 3rd party escrow
-                interactions by maximising the power of p2p using crytpcurrency.
-              </p> */}
-            </div>
-            <div className={style.featureBoxes}>
-              <div className={style.featureBox}>
-                <Image src={Safe} alt="Safety" />
-                <h3>Safe</h3>
-                <p>Users assets safety is of maximum priority</p>
-              </div>
-              <div className={style.featureBox}>
-                <Image src={Trust} alt="Trustless" />
-                <h3>Trustless</h3>
-                <p>No third party interactions involved</p>
-              </div>
-              {/* <div className={style.featureBox}>
-                <Image src={feature3} alt="Control" />
-                <h3>Control</h3>
-                <p>Users control their transactions</p>
-              </div> */}
-              <div className={style.featureBox}>
-                <Image src={Transparent} alt="Transparent" />
-                <h3>Transparent</h3>
-                <p>The entire transaction process is automated</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className={style.escrow} id="how-it-works">
-          <div className={style.escrowContent}>
-            <div className={style.esTitle}>
-              <h2>Escrow like its 2023</h2>
-            </div>
-            <div className={style.esBoxes}>
-              <div className={style.esBg}>
-                <div className={style.esLeft}>
-                  <h2>Sharable transaction links</h2>
-                  <p>
-                    Once a buyer and seller agree on item to be exchanged +
-                    price, seller creates a transaction with the details and
-                    shares it to the buyer.
-                  </p>
-                </div>
-                <div className={style.esRight}>
-                  <Image src={Phone1} alt="sharable links" />
-                </div>
-              </div>
-              <div className={style.esRow}>
-                <div className={style.esSm}>
-                  <div className={style.esTop}>
-                    <h2>Latent accounts</h2>
-                    <p>
-                      Buyers now send escrow funds directly to the sellers
-                      latent account. Seller cannot process funds until the
-                      buyer confirms, eliminating the need for 3rd party
-                      involvement
-                    </p>
-                  </div>
-                  <div className={style.esBottom}>
-                    <Image src={Lat} alt="latent accounts" />
-                  </div>
-                </div>
-                <div className={style.esSm2}>
-                  <div className={style.esTop}>
-                    <h2>Chat in transactions </h2>
-                    <p>Keep up with users you&apos;re in transcactions with.</p>
-                  </div>
-                  <div className={style.esBottom}>
-                    <Image src={Phone3} alt="sharable giveaway links" />
-                  </div>
-                </div>
-              </div>
-              <div className={style.esBg2}>
-                <div className={style.esLeft}>
-                  <h2>EVM Compatible networks</h2>
-                  <p>Runs on all the EVM compatible blockchains</p>
-                </div>
-                <div className={style.esRight}>
-                  <Image src={Chains} alt="sharable links" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className={style.dashboard}>
-          <div className={style.dashboardContent}>
-            <div className={style.dashboardTitle}>
-              <h2>A marketplace for everything</h2>
-            </div>
-            <div className={style.dashboardImg}>
-              <Image className={style.ImgW} src={dashboard} alt="dashboard" />
-              <Image className={style.ImgM} src={dashboardM} alt="dashboard" />
-            </div>
-          </div>
-        </section>
-
-        <FAQ />
-        <section className={style.bottomBanner}>
-          <div className={style.bottomBannerBox}>
-            <div className={style.btmBannerContent}>
-              <div className={style.btmLeft}>
-                <h3>Buylist is a safer ecosystem for all!</h3>
-                <p>
-                  Join a community of <span>10,000+</span> users safely
-                  exhanging items and resourcses
-                </p>
-                <div className={style.btmLeftBtns}>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://twitter.com/messages/compose?recipient_id=1377926822474682373&text=Hello%20Buylist"
-                    className="twitter-dm-button"
-                    data-screen-name="@buylistnft_"
-                  >
-                    <div className={style.btmBtn}>
-                      Exchange now
-                      <Image src={exchange} alt="exchange" />
-                    </div>
-                  </a>
-
-                  <div
-                    className={style.btmBtn2}
-                    onClick={() => setShowModal(true)}
-                  >
-                    Join waitlist
-                  </div>
-                </div>
-              </div>
-              <div className={style.btmRight}>
-                <Image src={btmPhone} alt="buylist" />
-              </div>
-            </div>
-          </div>
-        </section>
-        <Footer />
+        <div onClick={handleChat} className={style.chat}>
+          <WalletChatWidget widgetState={widgetState} />
+        </div>
       </div>
     </>
   );

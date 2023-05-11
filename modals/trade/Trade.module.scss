@@ -13,7 +13,6 @@
 
 .modal {
   position: fixed;
-
   z-index: 8;
   top: 6vh;
   //height: 90vh;
@@ -39,6 +38,7 @@
 }
 
 .modalTop {
+  //background: pink;
   @include flexRegular(row, flex-start);
   margin-bottom: 2em;
   img {
@@ -48,6 +48,11 @@
   h3 {
     font-size: 22px;
     font-family: Satoshi-Var;
+    width: 80%;
+  }
+  h4 {
+    font-size: 22px;
+    font-family: Satoshi-Reg;
     width: 80%;
   }
 }
@@ -69,6 +74,15 @@
   //background: pink;
   h3 {
     width: 100%;
+  }
+  h5 {
+    margin-top: 0.5em;
+    font-weight: 400;
+    color: #6e7191;
+    font-size: 20px;
+    font-family: Satoshi-Var;
+    width: 80%;
+    margin: 1em auto;
   }
 }
 
@@ -93,6 +107,7 @@
     font-size: 21px;
   }
 }
+
 .forSaleBx {
   margin-top: 1.5em;
   border: 1px solid rgba(230, 212, 118, 1);
@@ -125,7 +140,7 @@
 .modalInfo {
   @include flexRegular(row, center);
   align-items: center;
-  width: 80%;
+  width: 75%;
   //background: pink;
   margin: auto;
   li {
@@ -133,6 +148,7 @@
     margin: 1em 0 0 0;
     font-size: 15px;
     line-height: 26px;
+    color: #71717a;
 
     //list-style-type: disc;
   }
@@ -295,6 +311,132 @@
     margin-top: 2em;
   }
 }
+
+// Buy Modal
+.confirmContent {
+  width: 90%;
+
+  margin: auto;
+  .cTop {
+    @include flexRegular(row, flex-start);
+    margin: 10px 0 1em 0;
+    font-family: Satoshi-Var;
+    font-size: 19px;
+    img {
+      margin-right: 1em;
+    }
+  }
+  .cBody {
+    // background: pink;
+    margin: 1.5em 0;
+    @include flexRegular(row, space-between);
+    p {
+      font-family: Satoshi-Var;
+      font-weight: 500;
+      font-size: 1.1em;
+    }
+    span {
+      // margin: 0 3em;
+      color: #3f3f46;
+    }
+  }
+  .cBottom {
+    @include flexRegular(row, space-between);
+    font-size: 0.8em;
+  }
+  .feeBx {
+    background: #f5e5e5;
+    border-radius: 4px;
+    padding: 1em;
+    color: #f03738;
+  }
+  .cSaleBx {
+    @include flexRegular(row, flex-start);
+    img {
+      margin-left: 5px;
+    }
+  }
+}
+.cBody {
+  // background: pink;
+  margin: 1.5em 0;
+  @include flexRegular(row, space-between);
+  p {
+    font-family: Satoshi-Var;
+    font-weight: 500;
+    font-size: 1.1em;
+  }
+  span {
+    // margin: 0 3em;
+    color: #3f3f46;
+  }
+}
+.confirmBxBuy {
+  border: 1px solid rgba(230, 212, 118, 1);
+  // /background: #ffffff;
+  background: #fffef9;
+  box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.5em;
+  width: 95%;
+  margin: 2em auto;
+  text-align: center;
+}
+.centerBtn {
+  margin-top: 3em;
+  @include flexRegular(row, center);
+  button {
+    margin-top: 2em;
+    font-size: 15px;
+    @include btnRegular(#fff, 10vw);
+    @include flexRegular(row, center);
+    //background: linear-gradient(101.93deg, #20709b 2.36%, #1e4097 100%);
+    min-width: 140px;
+    // min-width: 200px;
+    max-width: 200px;
+    height: 49px;
+    border: 1px solid #f03738;
+    color: #f03738;
+    font-family: Raleway;
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}
+.reqBorder {
+  //width: 24%;
+  border-radius: 12px;
+  background: //linear-gradient(0deg, #ffffff, #ffffff),
+    linear-gradient(
+    275.64deg,
+    #e6d476 38.18%,
+    rgba(225, 51, 166, 0.72) 105.86%
+  );
+  padding: 0.5px;
+  margin: 1em 0;
+}
+.reqSent {
+  background: #ffffff;
+  border-radius: 12px;
+  @include flexRegular(column, center);
+  //border: 1px solid rgba(225, 51, 166, 0.72);
+  padding: 1.3em 1em;
+}
+.rTxt {
+  width: 80%;
+  //background: pink;
+  margin: 1.5em 0;
+  @include flexRegular(row, space-between);
+  p {
+    font-family: Satoshi-Var;
+    font-weight: 500;
+    font-size: 1.1em;
+  }
+  span {
+    color: #3f3f46;
+  }
+}
+
 @media (max-width: 1080px) {
   .modal {
     left: 22.5vw;

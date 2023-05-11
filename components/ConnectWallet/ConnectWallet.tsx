@@ -31,10 +31,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useRouter } from "next/router";
 //import { shortenAddress } from "../../utils/formatting";
 
+import { WalletChatWidget } from "../rwc/dist/index";
+//import "react-wallet-chat-v0/dist/index.css";
+//import "../rwc/dist/index.css";
+
 const ConnectWallet = () => {
   const router = useRouter();
 
   // const [hasTag, setHasTag] = useState(false);
+  const [widgetState, setWidgetState] = useState({});
   const [reqLoading, setReqLoading] = useState(false);
   const [tagName, setTagName] = useState<any>([]);
   const [isChainSupported, setIsChainSupported] = useState(false);
@@ -77,7 +82,8 @@ const ConnectWallet = () => {
   // });
   const { connectors, connect, isLoading, pendingConnector } = useConnect({
     onSuccess(data) {
-      console.log(data);
+      console.log("yoo?", data);
+
       if (data.chain.unsupported) {
         disconnect();
         toast.error(`Chain not supported, please switch to supported chain`, {
@@ -194,8 +200,8 @@ const ConnectWallet = () => {
       } else if (action === "buy") {
         //route to marketplace
         setTimeout(() => {
-          router.push("/Marketplace");
-        }, 600);
+          router.push("/marketplace");
+        }, 500);
       }
     } else {
       //
@@ -247,7 +253,7 @@ const ConnectWallet = () => {
   useEffect(() => {
     let openConnect: any = document.getElementById("openConnect");
     let openConnect2: any = document.getElementById("openConnect2");
-    let openConnect3: any = document.getElementById("openConnect3");
+    //let openConnect3: any = document.getElementById("openConnect3");
     let openConnect4: any = document.getElementById("openConnect4");
     const t1 = gsap.timeline();
     t1.to(box.current, 0.001, {
@@ -264,11 +270,13 @@ const ConnectWallet = () => {
       overlay.current.classList.toggle(style.overlay);
       setAction("sell");
     };
-    openConnect3.onclick = function () {
-      t1.reversed(!t1.reversed());
-      overlay.current.classList.toggle(style.overlay);
-      setAction("buy");
-    };
+    // openConnect3.onclick = function () {
+    //   t1.reversed(!t1.reversed());
+    //   overlay.current.classList.toggle(style.overlay);
+    //   // alert("yo");
+
+    //   setAction("buy");
+    // };
     openConnect4.onclick = function () {
       t1.reversed(!t1.reversed());
       overlay.current.classList.toggle(style.overlay);
@@ -296,9 +304,11 @@ const ConnectWallet = () => {
         setShowModal("sell");
       } else if (action === "buy") {
         //route to marketplace
+        // router.push("/marketplace");
         setTimeout(() => {
           router.push("/Marketplace");
-        }, 600);
+          //alert("yo");
+        }, 500);
       }
       setTagName([]);
     }
@@ -310,13 +320,14 @@ const ConnectWallet = () => {
   return (
     <>
       <AnimatePresence exitBeforeEnter>
-        {showModal === "buy" ? (
+        {/* {showModal === "buy" ? (
           <Buy handleClose={handleClose} />
         ) : showModal === "sell" ? (
           <Sell handleClose={handleClose} />
         ) : (
           ""
-        )}
+        )} */}
+        {showModal === "sell" && <Sell handleClose={handleClose} />}
         {/* {showModal === "sell" && <Sell handleClose={handleClose} />} */}
       </AnimatePresence>
       <Toaster
@@ -434,10 +445,10 @@ const ConnectWallet = () => {
                   {" "}
                   Sign Out
                 </button>
-                <button className={style.disconnect} onClick={alreadyExists}>
+                {/* <button className={style.disconnect} onClick={alreadyExists}>
                   {" "}
                   Log In
-                </button>
+                </button> */}
                 {/* <div className={style.walletTxt}>
                   <p>A tag has been created with your wallet</p>
                 </div> */}
@@ -445,40 +456,6 @@ const ConnectWallet = () => {
             )}
           </div>
           <div className={style.line}></div>
-
-          <div className={style.tagBox}>
-            <>
-              <div
-                className={`${style.walletTxt} ${
-                  !isConnected ? "disable" : " "
-                }`}
-              >
-                <h3>Quickly setup buylist tag</h3>
-                <form className={style.tagForm} onSubmit={handleRegister}>
-                  <TextInput
-                    labelName="Buylist tag"
-                    inputName="tag"
-                    type="text"
-                    value={userInput.tag}
-                    inputHandler={inputHandler}
-                    // onKeyUp={(e) => handleKey}
-                  />
-                  <button
-                    disabled={reqLoading}
-                    //onClick={() => setShowModal("sell")}
-                  >
-                    {reqLoading ? (
-                      <CircularProgress color="inherit" size={20} />
-                    ) : (
-                      "Submit"
-                    )}
-                  </button>
-                  <p>{comment}</p>
-                  {/* <p>{verified ? "True" : "False"}</p> */}
-                </form>
-              </div>
-            </>
-          </div>
         </div>
       </div>
     </>

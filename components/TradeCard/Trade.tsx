@@ -7,7 +7,7 @@ import Ex from "./ex.svg";
 import Eth from "./ethlogo.svg";
 import Arrow from "./rightArr.svg";
 
-const TradeCard = () => {
+const TradeCard = (props: { openTrade?: any }) => {
   return (
     <>
       <div className={style.cardBorder}>
@@ -30,7 +30,7 @@ const TradeCard = () => {
             </div>
           </div>
           <div className={style.cardArrBorder}>
-            <div className={style.cardArrow}>
+            <div className={style.cardArrow} onClick={props.openTrade}>
               <Image src={Arrow} alt="arrow" />
             </div>
           </div>

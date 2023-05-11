@@ -2,16 +2,17 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import style from "./Trade.module.scss";
 import Image from "next/image";
+
 import Close from "./assets/close.svg";
 import Shape from "./assets/cshape.svg";
 import Link from "next/link";
 
-import Share from "./assets/Share.svg";
+import Share from "./assets/share.svg";
+import Info from "./assets/info.svg";
+import Yellow from "./assets/yellow.svg";
 
 // components
-import SellItem from "./SellItem";
-import ConfirmSale from "./ConfirmSale";
-import SaleCreated from "./SaleCreated";
+import BuyReq from "./BuyReq";
 
 const overlayyy = {
   hidden: {
@@ -53,35 +54,31 @@ const modalise = {
   },
 };
 
-const Buy = (props: { handleClose?: any }) => {
-  const [hoverItem, setHoverItem] = useState("none");
-  const [saleState, setSaleState] = useState("choose");
-  const [itemChoice, setItemChoice] = useState("");
+const Buy = (props: { closeTrade?: any }) => {
+  const [buyState, setBuyState] = useState("buy");
 
   const handleBack = () => {
-    if (saleState === "sellItem") {
-      setSaleState("choose");
-    } else {
-      setSaleState("sellItem");
-    }
+    // if (saleState === "sellItem") {
+    //   setSaleState("choose");
+    // } else {
+    //   setSaleState("sellItem");
+    // }
+    setBuyState("buy");
   };
   const handleNext = () => {
-    if (saleState === "sellItem") {
-      setSaleState("confirm");
-    } else {
-      setSaleState("complete");
+    if (buyState === "buy") {
+      setBuyState("sent");
     }
+    //else {
+    //   setBuyState("complete");
+    // }
   };
   return (
     <motion.div>
-      {/* animate__animated animate__fadeInUp */}
       <motion.div
         key="overlay"
         className={style.overlay}
-        onClick={props.handleClose}
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // exit={{ opacity: 0 }}
+        onClick={props.closeTrade}
         variants={overlayyy}
         initial="hidden"
         animate="visible"
@@ -94,90 +91,64 @@ const Buy = (props: { handleClose?: any }) => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        // initial={{ opacity: 0, scale: 0.5 }}
-        // animate={{ opacity: 1, scale: 1 }}
       >
-        {/* item choice */}
         <div className={style.modalContent}>
           <AnimatePresence exitBeforeEnter>
-            {/* {saleState === "choose" ? ( */}
-            <motion.div
-              key="sellll"
-              initial={{ y: -300 }}
-              animate={{ y: 0 }}
-              exit={{ y: -300 }}
-            >
-              <div className={style.modalTop}>
-                <Image src={Close} alt="close" onClick={props.handleClose} />
-                <h3>Buy now</h3>
-              </div>
-              <div
-                className={style.saleItem}
-                onMouseEnter={() => setHoverItem("token")}
-                onClick={() => {
-                  setItemChoice("token");
-                  setSaleState("sellItem");
-                }}
+            {buyState === "buy" ? (
+              <motion.div
+                key="sellll"
+                initial={{ y: -300 }}
+                animate={{ y: 0 }}
+                exit={{ y: -300 }}
               >
-                <h4>Illiquid tokens</h4>
-                {hoverItem === "token" && (
-                  <Image
-                    src={Shape}
-                    alt="active item"
-                    //className="animate__animated animate__fadeIn"
-                  />
-                )}
-              </div>
-              <div
-                className={style.saleItem}
-                onMouseEnter={() => setHoverItem("nft")}
-                onClick={() => {
-                  setItemChoice("nft");
-                  setSaleState("sellItem");
-                }}
-              >
-                <h4>NFT / Whitelist</h4>
-                {hoverItem === "nft" && (
-                  <Image
-                    src={Shape}
-                    alt="active item"
-                    //className="animate__animated animate__fadeIn"
-                  />
-                )}
-              </div>
-              <div
-                className={style.saleItem}
-                onMouseEnter={() => setHoverItem("social media")}
-                onClick={() => {
-                  setItemChoice("socials");
-                  setSaleState("sellItem");
-                }}
-              >
-                <h4>Social media accounts</h4>
-                {hoverItem === "social media" && (
-                  <Image
-                    src={Shape}
-                    alt="active item"
-                    //className="animate__animated animate__fadeIn"
-                  />
-                )}
-              </div>
-              <div
-                className={style.saleItem}
-                onMouseEnter={() => setHoverItem("others")}
-              >
-                <h4>Others</h4>
-                {hoverItem === "others" && (
-                  <Image
-                    src={Shape}
-                    alt="active item"
-                    //className="animate__animated animate__fadeIn"
-                  />
-                )}
-              </div>
-            </motion.div>
-
-            {/* )} */}
+                <div className={style.modalTop}>
+                  <Image src={Close} alt="close" onClick={props.closeTrade} />
+                  <h4>Buy token</h4>
+                </div>
+                <div className={style.confirmBxBuy}>
+                  <div className={style.confirmContent}>
+                    <div className={style.cTop}>
+                      <Image src={Info} alt="info" />
+                      <p>You are paying</p>
+                    </div>
+                    <div className={style.cBody}>
+                      <p>USDT 200</p>
+                      <span>For</span>
+                      <p>$0.00 ARB </p>
+                    </div>
+                    <div className={style.cBottom}>
+                      <div className={style.feeBx}>
+                        <p>Transaction fee: 3%</p>
+                      </div>
+                      <div className={style.cSaleBx}>
+                        <p>Token sale </p>
+                        <Image src={Yellow} alt="yellow" />
+                        <Image
+                          style={{ cursor: "pointer" }}
+                          src={Share}
+                          alt="share"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={style.modalInfo}>
+                  <ul>
+                    <li>Funds will be sent to your latent wallet.</li>
+                    <li>
+                      Seller cannot access funds until buyer confirms receipt of
+                      tokens
+                    </li>
+                  </ul>
+                </div>
+                <div className={style.modalBtns}>
+                  <button>Back</button>
+                  <button onClick={handleNext}>Send request</button>
+                </div>
+              </motion.div>
+            ) : (
+              <BuyReq buyState={buyState} handleBack={handleBack} />
+            )}
           </AnimatePresence>
         </div>
       </motion.div>
